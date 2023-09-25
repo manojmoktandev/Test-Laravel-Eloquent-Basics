@@ -86,6 +86,7 @@ class EloquentTest extends TestCase
             'old_name' => 'Old name',
             'new_name' => 'New name'
         ]);
+
         $response->assertRedirect();
         $this->assertDatabaseMissing('projects', ['name' => 'Old name']);
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
@@ -115,6 +116,7 @@ class EloquentTest extends TestCase
         $response = $this->delete('users', [
             'users' => [1, 2, 3]
         ]);
+
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
     }
@@ -139,7 +141,7 @@ class EloquentTest extends TestCase
 
     public function test_insert_observer()
     {
-        $this->post('projects/stats', ['name' => 'Some name']);
+       $this->post('projects/stats', ['name' => 'Some name']);
 
         $statsRow = Stat::first();
         $this->assertEquals(1, $statsRow->projects_count);
